@@ -2,6 +2,24 @@
 
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
+
+    <ItemGroup>
+      <PackageReference Include="MathNet.Numerics" Version="4.9.0" />
+      <PackageReference Include="System.Memory" Version="4.5.4" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="Spectro.Core.Test\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Spectro.Core.Test\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Spectro.Core.Test\**" />
+    </ItemGroup>
 
 </Project>

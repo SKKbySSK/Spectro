@@ -1,0 +1,7 @@
+{
+  "files.associations": {
+    "functional": "cpp",
+    "type_traits": "cpp",
+    "__node_handle": "cpp"
+  }
+}

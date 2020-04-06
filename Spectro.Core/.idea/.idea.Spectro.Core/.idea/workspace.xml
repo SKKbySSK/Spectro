@@ -2,16 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="08bcc04e-19dc-40d7-b5cb-644e6841d16a" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Spectro.Cross/libsoundio-sharp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../.gitmodules" beforeDir="false" afterPath="$PROJECT_DIR$/../.gitmodules" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Spectro.Core/.idea/contentModel.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Spectro.Core/.idea/contentModel.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.Spectro.Core/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Spectro.Core/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/.idea.Spectro.Core/riderModule.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.Spectro.Core/riderModule.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Spectro.Core.sln" beforeDir="false" afterPath="$PROJECT_DIR$/Spectro.Core.sln" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Spectro.Cross/Program.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spectro.Cross/Program.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Spectro.Cross/Soundio/Soundio.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spectro.Cross/Soundio/Soundio.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Spectro.Cross/Soundio/SoundioInput.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Spectro.Cross/Soundio/SoundioInput.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Spectro.Cross/Spectro.Cross.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/Spectro.Cross/Spectro.Cross.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../libsoundio-sharp" beforeDir="false" afterPath="$PROJECT_DIR$/../libsoundio-sharp" afterDir="false" />
     </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -21,19 +20,23 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/Spectro.Cross/Soundio/Soundio.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Spectro.Cross/Soundio/SoundioInput.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Analyzer.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Spectro.Core.Test/AnalyzerTest.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/IAudioSource.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Color.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/BufferSink.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/IAudioInput.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/AudioFormat.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/ValueEventArgs.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Visualizer.cs" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/SourcesCache/92B5E598-6D6C-4D94-8B37-43C9DCEF6A74/1D8/ExceptionDispatchInfo.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Spectro.Cross/Program.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Visualizer.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/BufferSink.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Color.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/92882F58-11D9-44E2-9819-BF62BA26EB87/6b/81029faa/TaskAwaiter.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/IAudioInput.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Spectro.Cross/libsoundio-sharp/libsoundio-sharp/libsoundio-interop.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/AudioFormat.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/IAudioSource.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/ValueEventArgs.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Spectro.Cross/Soundio/SoundioInput.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Spectro.Cross/Soundio/Soundio.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Spectro.Cross/libsoundio-sharp/libsoundio-sharp/SoundIOInStream.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/../libsoundio-sharp/libsoundio-sharp/SoundIODevice.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/obj/Debug/netstandard2.0/Spectro.Core.AssemblyInfo.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -53,12 +56,12 @@
         <option value="$PROJECT_DIR$/ValueEventArgs.cs" />
         <option value="$PROJECT_DIR$/AudioFormat.cs" />
         <option value="$PROJECT_DIR$/IAudioInput.cs" />
-        <option value="$PROJECT_DIR$/Spectro.Cross/Soundio/SoundioInput.cs" />
         <option value="$PROJECT_DIR$/Spectro.Cross/Main.cs" />
         <option value="$PROJECT_DIR$/obj/Debug/netstandard2.0/Spectro.Core.AssemblyInfo.cs" />
         <option value="$PROJECT_DIR$/Spectro.Cross/Spectro.Cross.csproj" />
-        <option value="$PROJECT_DIR$/Spectro.Cross/Soundio/Soundio.cs" />
         <option value="$PROJECT_DIR$/Spectro.Cross/Program.cs" />
+        <option value="$PROJECT_DIR$/Spectro.Cross/Soundio/SoundioInput.cs" />
+        <option value="$PROJECT_DIR$/Spectro.Cross/Soundio/Soundio.cs" />
       </list>
     </option>
   </component>
@@ -86,6 +89,18 @@
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
   </component>
   <component name="RunManager">
     <configuration name="Default" type="DotNetProject" factoryName=".NET Project">
@@ -123,6 +138,7 @@
       <workItem from="1586150259816" duration="8274000" />
       <workItem from="1586159152976" duration="17000" />
       <workItem from="1586159594437" duration="861000" />
+      <workItem from="1586160533097" duration="1380000" />
     </task>
     <servers />
   </component>

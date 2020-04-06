@@ -94,6 +94,7 @@ namespace Spectro.Cross.Soundio
             stream.Layout = layout.Value;
             stream.SampleRate = format.SampleRate;
             stream.ReadCallback = ReadCallback;
+            stream.Open();
             
             const int bufferDuration = 30;
             int capacity = (int)(bufferDuration * stream.SampleRate * stream.BytesPerFrame);

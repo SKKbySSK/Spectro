@@ -12,4 +12,24 @@
         <ProjectReference Include="..\..\libsoundio-sharp\libsoundio-sharp\libsoundio-sharp.csproj" />
         <ProjectReference Include="..\Spectro.Core.csproj" />
     </ItemGroup>
+
+    <ItemGroup>
+      <Compile Remove="libsoundio-sharp\example\**" />
+      <Compile Remove="libsoundio-sharp\libsoundio-sharp.Tests\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="libsoundio-sharp\example\**" />
+      <EmbeddedResource Remove="libsoundio-sharp\libsoundio-sharp.Tests\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="libsoundio-sharp\example\**" />
+      <None Remove="libsoundio-sharp\libsoundio-sharp.Tests\**" />
+      <None Remove="libsoundio-sharp\.gitignore" />
+      <None Remove="libsoundio-sharp\.gitmodules" />
+      <None Remove="libsoundio-sharp\LICENSE" />
+      <None Remove="libsoundio-sharp\Makefile" />
+      <None Remove="libsoundio-sharp\README.md" />
+    </ItemGroup>
 </Project>

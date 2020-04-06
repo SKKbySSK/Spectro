@@ -1,70 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ContentModelStore">
+    <e p="$USER_HOME$/.Rider2019.3/system/extResources" t="IncludeRecursive" />
+    <e p="$USER_HOME$/.Rider2019.3/system/resharper-host/local/Transient/ReSharperHost/v193/SolutionCaches/_Spectro.Core.-1752910506.00" t="ExcludeRecursive" />
     <e p="$USER_HOME$/.nuget/packages/microsoft.net.test.sdk/16.5.0/build/netcoreapp2.1" t="Include">
       <e p="Microsoft.NET.Test.Sdk.Program.cs" t="Include" />
     </e>
-    <e p="$USER_HOME$/.nuget/packages/nunit3testadapter/3.16.1/build/netcoreapp2.1/nunit.engine.api.dll" t="Include" />
-    <e p="$USER_HOME$/.nuget/packages/nunit3testadapter/3.16.1/build/netcoreapp2.1/nunit.engine.dll" t="Include" />
     <e p="$USER_HOME$/.nuget/packages/nunit3testadapter/3.16.1/build/netcoreapp2.1/NUnit3.TestAdapter.dll" t="Include" />
     <e p="$USER_HOME$/.nuget/packages/nunit3testadapter/3.16.1/build/netcoreapp2.1/NUnit3.TestAdapter.pdb" t="Include" />
-    <e p="$PROJECT_DIR$/../libsoundio-sharp/libsoundio-sharp" t="IncludeRecursive">
-      <e p="bin" t="ExcludeRecursive" />
-      <e p="libs" t="Include">
-        <e p="libsoundio.dylib" t="Include" />
-        <e p="libsoundio.so" t="Include" />
-      </e>
-      <e p="libsoundio-interop.cs" t="Include" />
-      <e p="libsoundio-sharp.csproj" t="IncludeRecursive" />
-      <e p="MarshalExtensions.cs" t="Include" />
-      <e p="obj" t="ExcludeRecursive">
-        <e p="x64" t="Include">
-          <e p="Debug" t="Include">
-            <e p="netstandard2.0" t="Include">
-              <e p="libsoundio-sharp.AssemblyInfo.cs" t="Include" />
-            </e>
-          </e>
-        </e>
-      </e>
-      <e p="Soundio.cs" t="Include" />
-      <e p="SoundIOBackend.cs" t="Include" />
-      <e p="SoundIOChannelArea.cs" t="Include" />
-      <e p="SoundIOChannelAreas.cs" t="Include" />
-      <e p="SoundIOChannelId.cs" t="Include" />
-      <e p="SoundIOChannelLayout.cs" t="Include" />
-      <e p="SoundIODevice.cs" t="Include" />
-      <e p="SoundIODeviceAim.cs" t="Include" />
-      <e p="SoundIOException.cs" t="Include" />
-      <e p="SoundIOFormat.cs" t="Include" />
-      <e p="SoundIOInStream.cs" t="Include" />
-      <e p="SoundIOOutStream.cs" t="Include" />
-      <e p="SoundIORingBuffer.cs" t="Include" />
-      <e p="SoundIOSampleRateRange.cs" t="Include" />
-    </e>
+    <e p="$USER_HOME$/.nuget/packages/nunit3testadapter/3.16.1/build/netcoreapp2.1/nunit.engine.api.dll" t="Include" />
+    <e p="$USER_HOME$/.nuget/packages/nunit3testadapter/3.16.1/build/netcoreapp2.1/nunit.engine.dll" t="Include" />
     <e p="$PROJECT_DIR$" t="IncludeRecursive">
       <e p=".gitignore" t="Include" />
       <e p="Analyzer.cs" t="Include" />
       <e p="AudioFormat.cs" t="Include" />
-      <e p="bin" t="ExcludeRecursive" />
       <e p="BufferSink.cs" t="Include" />
       <e p="Color.cs" t="Include" />
       <e p="IAudioInput.cs" t="Include" />
       <e p="IAudioSource.cs" t="Include" />
-      <e p="obj" t="ExcludeRecursive">
-        <e p="x64" t="Include">
-          <e p="Debug" t="Include">
-            <e p="netstandard2.0" t="Include">
-              <e p="Spectro.Core.AssemblyInfo.cs" t="Include" />
-            </e>
-          </e>
-        </e>
-      </e>
-      <e p="packages" t="ExcludeRecursive" />
-      <e p="Spectro.Core.csproj" t="IncludeRecursive" />
-      <e p="Spectro.Core.sln" t="IncludeFlat" />
-      <e p="Spectro.Core.sln.DotSettings" t="Include" />
       <e p="Spectro.Core.Test" t="IncludeRecursive">
         <e p="AnalyzerTest.cs" t="Include" />
+        <e p="Spectro.Core.Test.csproj" t="IncludeRecursive" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="obj" t="ExcludeRecursive">
           <e p="x64" t="Include">
@@ -75,10 +31,42 @@
             </e>
           </e>
         </e>
-        <e p="Spectro.Core.Test.csproj" t="IncludeRecursive" />
       </e>
+      <e p="Spectro.Core.csproj" t="IncludeRecursive" />
+      <e p="Spectro.Core.sln" t="IncludeFlat" />
+      <e p="Spectro.Core.sln.DotSettings" t="Include" />
       <e p="Spectro.Cross" t="IncludeRecursive">
+        <e p="Program.cs" t="Include" />
+        <e p="Soundio" t="Include">
+          <e p="Soundio.cs" t="Include" />
+          <e p="SoundioInput.cs" t="Include" />
+        </e>
+        <e p="Spectro.Cross.csproj" t="IncludeRecursive" />
         <e p="bin" t="ExcludeRecursive" />
+        <e p="libsoundio-sharp" t="Include">
+          <e p="libsoundio-sharp" t="Include">
+            <e p="MarshalExtensions.cs" t="Include" />
+            <e p="SoundIO.cs" t="Include" />
+            <e p="SoundIOBackend.cs" t="Include" />
+            <e p="SoundIOChannelArea.cs" t="Include" />
+            <e p="SoundIOChannelAreas.cs" t="Include" />
+            <e p="SoundIOChannelId.cs" t="Include" />
+            <e p="SoundIOChannelLayout.cs" t="Include" />
+            <e p="SoundIODevice.cs" t="Include" />
+            <e p="SoundIODeviceAim.cs" t="Include" />
+            <e p="SoundIOException.cs" t="Include" />
+            <e p="SoundIOFormat.cs" t="Include" />
+            <e p="SoundIOInStream.cs" t="Include" />
+            <e p="SoundIOOutStream.cs" t="Include" />
+            <e p="SoundIORingBuffer.cs" t="Include" />
+            <e p="SoundIOSampleRateRange.cs" t="Include" />
+            <e p="libs" t="Include">
+              <e p="libsoundio.dylib" t="Include" />
+              <e p="libsoundio.so" t="Include" />
+            </e>
+            <e p="libsoundio-interop.cs" t="Include" />
+          </e>
+        </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="x64" t="Include">
             <e p="Debug" t="Include">
@@ -88,17 +76,20 @@
             </e>
           </e>
         </e>
-        <e p="Program.cs" t="Include" />
-        <e p="Soundio" t="Include">
-          <e p="Soundio.cs" t="Include" />
-          <e p="SoundioInput.cs" t="Include" />
-        </e>
-        <e p="Spectro.Cross.csproj" t="IncludeRecursive" />
       </e>
       <e p="ValueEventArgs.cs" t="Include" />
       <e p="Visualizer.cs" t="Include" />
+      <e p="bin" t="ExcludeRecursive" />
+      <e p="obj" t="ExcludeRecursive">
+        <e p="x64" t="Include">
+          <e p="Debug" t="Include">
+            <e p="netstandard2.0" t="Include">
+              <e p="Spectro.Core.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+      </e>
+      <e p="packages" t="ExcludeRecursive" />
     </e>
-    <e p="$USER_HOME$/Library/Caches/Rider2019.2/extResources" t="IncludeRecursive" />
-    <e p="$USER_HOME$/Library/Caches/Rider2019.2/resharper-host/local/Transient/ReSharperHost/v192/SolutionCaches/_Spectro.Core.522980615.00" t="ExcludeRecursive" />
   </component>
 </project>

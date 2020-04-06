@@ -13,6 +13,8 @@ namespace Spectro.Cross
             {
                 Console.WriteLine($"[{i++}] {device.Name}");
             }
+
+            Console.ReadLine();
         }
     }
 }

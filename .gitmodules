@@ -1,3 +1,6 @@
 [submodule "libsoundio-sharp"]
 	path = libsoundio-sharp
 	url = https://github.com/atsushieno/libsoundio-sharp.git
+[submodule "Spectro.Core/Spectro.Cross/libsoundio-sharp"]
+	path = Spectro.Core/Spectro.Cross/libsoundio-sharp
+	url = git@github.com:atsushieno/libsoundio-sharp.git

@@ -6,6 +6,12 @@ namespace Spectro.Cross.Soundio
 {
     public static class Soundio
     {
+        static Soundio() 
+        {
+            Api.Connect();
+            Api.FlushEvents();
+        }
+        
         public static SoundIO Api { get; } = new SoundIO();
 
         public static SoundIODevice[] GetOutputDevices()

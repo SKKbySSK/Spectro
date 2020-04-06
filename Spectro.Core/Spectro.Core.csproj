@@ -3,6 +3,8 @@
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
         <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+        <Configurations>Debug;Release</Configurations>
+        <Platforms>x64</Platforms>
     </PropertyGroup>
 
     <ItemGroup>
@@ -12,14 +14,17 @@
 
     <ItemGroup>
       <Compile Remove="Spectro.Core.Test\**" />
+      <Compile Remove="Spectro.Cross\**" />
     </ItemGroup>
 
     <ItemGroup>
       <EmbeddedResource Remove="Spectro.Core.Test\**" />
+      <EmbeddedResource Remove="Spectro.Cross\**" />
     </ItemGroup>
 
     <ItemGroup>
       <None Remove="Spectro.Core.Test\**" />
+      <None Remove="Spectro.Cross\**" />
     </ItemGroup>
 
 </Project>

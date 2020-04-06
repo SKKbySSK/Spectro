@@ -22,7 +22,7 @@ private:
       callback(key);
     } else {
       callback(key);
-      Delay(250);
+      Delay(200);
     }
   }
 
@@ -37,7 +37,7 @@ protected:
   void Run() override {
     while(true) {
       decoder->decodeIr();
-      Delay(50);
+      Delay(100);
     }
   }
 };

@@ -45,8 +45,8 @@ protected:
     if (!enableOutput) {
       return;
     }
-    char* buffer = malloc(strlen(value) + 3);
-    sprintf(buffer, "[%s]", name);
+    char* buffer = malloc(strlen(value) + 4);
+    sprintf(buffer, "[%s] ", name);
     Serial.write(buffer);
     Serial.println(value);
     Serial.flush();
@@ -57,8 +57,8 @@ protected:
     if (!enableOutput) {
       return;
     }
-    char* buffer = malloc(strlen(value) + 3);
-    sprintf(buffer, "[%s]", name);
+    char* buffer = malloc(strlen(value) + 4);
+    sprintf(buffer, "[%s] ", name);
     Serial.write(buffer);
     Serial.write(value);
     Serial.flush();

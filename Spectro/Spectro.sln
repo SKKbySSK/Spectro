@@ -1,6 +1,6 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spectro.Core", "Spectro.Core.csproj", "{FB670BA7-9EBC-44F1-AB16-11BC05FBDE28}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spectro.Core", "Spectro.Core\Spectro.Core.csproj", "{FB670BA7-9EBC-44F1-AB16-11BC05FBDE28}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spectro.Core.Test", "Spectro.Core.Test\Spectro.Core.Test.csproj", "{7E2310A0-2308-45CF-9E1E-F73F0E646041}"
 EndProject

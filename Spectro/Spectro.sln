@@ -6,7 +6,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spectro.Core.Test", "Spectr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spectro.Cross", "Spectro.Cross\Spectro.Cross.csproj", "{EC1D4C19-1050-4FEC-945A-1948BBA661B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Spectro.SP110E", "Spectro.SP110E\Spectro.SP110E.csproj", "{40E5291F-3D75-480C-AC02-32BDCC4C92E1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SP110E.Visualizer", "..\..\SP110E.Visualizer\SP110E.Visualizer\SP110E.Visualizer.csproj", "{A3149ADF-EC34-42DB-B950-24B98FB5DB8C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Soundio.Test", "Soundio.Test\Soundio.Test.csproj", "{47DAF0E9-2ABC-487B-9944-7B8363832AA1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,9 +28,9 @@ Global
 		{EC1D4C19-1050-4FEC-945A-1948BBA661B0}.Debug|x64.Build.0 = Debug|x64
 		{EC1D4C19-1050-4FEC-945A-1948BBA661B0}.Release|x64.ActiveCfg = Release|x64
 		{EC1D4C19-1050-4FEC-945A-1948BBA661B0}.Release|x64.Build.0 = Release|x64
-		{40E5291F-3D75-480C-AC02-32BDCC4C92E1}.Debug|x64.ActiveCfg = Debug|Any CPU
-		{40E5291F-3D75-480C-AC02-32BDCC4C92E1}.Debug|x64.Build.0 = Debug|Any CPU
-		{40E5291F-3D75-480C-AC02-32BDCC4C92E1}.Release|x64.ActiveCfg = Release|Any CPU
-		{40E5291F-3D75-480C-AC02-32BDCC4C92E1}.Release|x64.Build.0 = Release|Any CPU
+		{47DAF0E9-2ABC-487B-9944-7B8363832AA1}.Debug|x64.ActiveCfg = Debug|x64
+		{47DAF0E9-2ABC-487B-9944-7B8363832AA1}.Debug|x64.Build.0 = Debug|x64
+		{A3149ADF-EC34-42DB-B950-24B98FB5DB8C}.Debug|x64.ActiveCfg = Debug|x64
+		{A3149ADF-EC34-42DB-B950-24B98FB5DB8C}.Debug|x64.Build.0 = Debug|x64
 	EndGlobalSection
 EndGlobal

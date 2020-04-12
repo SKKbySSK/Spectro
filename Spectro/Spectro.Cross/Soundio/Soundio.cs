@@ -6,36 +6,6 @@ namespace Spectro.Cross.Soundio
 {
     public static class Soundio
     {
-        static Soundio() 
-        {
-            Api.Connect();
-            Api.FlushEvents();
-        }
-        
-        public static SoundIO Api { get; } = new SoundIO();
-
-        public static SoundIODevice[] GetOutputDevices()
-        {
-            var devices = new SoundIODevice[Api.OutputDeviceCount];
-            for (int i = 0; devices.Length > i; i++)
-            {
-                devices[i] = Api.GetOutputDevice(i);
-            }
-
-            return devices;
-        }
-
-        public static SoundIODevice[] GetInputDevices()
-        {
-            var devices = new SoundIODevice[Api.InputDeviceCount];
-            for (int i = 0; devices.Length > i; i++)
-            {
-                devices[i] = Api.GetInputDevice(i);
-            }
-
-            return devices;
-        }
-
         public static AudioFormat ToManagedFormat(SoundIOFormat format, int sampleRate, int channels)
         {
             if (format == SoundIODevice.S16NE)

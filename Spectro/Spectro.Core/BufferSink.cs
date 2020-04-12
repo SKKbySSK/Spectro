@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 
 namespace Spectro.Core
 {
@@ -14,19 +15,27 @@ namespace Spectro.Core
             Size = size;
         }
 
+        public BufferSink() : this(0)
+        {
+            
+        }
+
         public int Size { get; set; }
 
         private List<Memory<T>> Buffers { get; } = new List<Memory<T>>();
 
-        public bool IsFilled => reachLast || Buffers.Sum(b => b.Length) >= Size;
+        public int BufferedDataCount { get; private set; } = 0;
+
+        public bool IsFilled => Size > 0 && reachLast || BufferedDataCount >= Size;
 
         public event EventHandler Filled;
 
         public void Push(T[] buffer, bool isLastBuffer)
         {
             Buffers.Add(buffer);
+            BufferedDataCount += buffer.Length;
             reachLast = isLastBuffer;
-
+            
             if (IsFilled)
             {
                 Filled?.Invoke(this, EventArgs.Empty);
@@ -35,7 +44,7 @@ namespace Spectro.Core
 
         public void PushCopied(T[] buffer, int offset, int count, bool isLastBuffer)
         {
-            T[] copied = new T[buffer.Length];
+            T[] copied = new T[count];
             Array.Copy(buffer, offset, copied, 0, count);
 
             Push(copied, isLastBuffer);
@@ -43,12 +52,12 @@ namespace Spectro.Core
 
         public T[] Pop(int size)
         {
-            int len = Math.Min(size, Buffers.Sum(b => b.Length));
+            int len = Math.Min(size, BufferedDataCount);
 
-            int read = 0;
+            int read = 0, index = 0, offset = 0;
             Memory<T>? buffer = null;
             T[] data = new T[len];
-            for (int i = 0; len > i; i++)
+            for (; len > read; read++)
             {
                 if (buffer == null)
                 {
@@ -56,21 +65,24 @@ namespace Spectro.Core
                     Buffers.RemoveAt(0);
                 }
 
-                if (i - read < buffer.Value.Length)
+                index = read - offset;
+                if (index < buffer.Value.Length)
                 {
-                    data[i] = buffer.Value.Span[i - read];
+                    data[read] = buffer.Value.Span[index];
                 }
                 else
                 {
-                    read += buffer.Value.Length;
+                    offset += buffer.Value.Length;
                     buffer = null;
-                    i--;
+                    read--;
                 }
             }
 
+            BufferedDataCount -= len;
+
             if (buffer != null)
             {
-                int ind = buffer.Value.Length - (len - read);
+                int ind = len - offset;
 
                 if (ind > 0)
                 {

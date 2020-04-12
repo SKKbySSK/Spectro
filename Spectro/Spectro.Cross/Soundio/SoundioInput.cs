@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Concurrent;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,20 +11,49 @@ namespace Spectro.Cross.Soundio
 {
     public class SoundioInput : IAudioInput, IDisposable
     {
-        private SoundIORingBuffer ringBuffer = null;
-        private Thread thread;
-        private SoundIOInStream stream;
+        private readonly SoundIO api = new SoundIO();
+        private SoundIOInStream instream;
         private bool stop = false;
+        private RingBuffer<byte> _ringBuffer;
+        private TimeSpan _bufferDuration;
         private TaskCompletionSource<object> threadSource = new TaskCompletionSource<object>();
+        private ConcurrentQueue<byte[]> buffers = new ConcurrentQueue<byte[]>();
         
-        public SoundioInput(SoundIODevice device)
+        public SoundioInput(TimeSpan? bufferDuration = null)
+        {
+            _bufferDuration = bufferDuration ?? TimeSpan.FromSeconds(30);
+            api.ConnectBackend(SoundIOBackend.Alsa);
+            api.FlushEvents();
+            
+            for (int i = 0; api.InputDeviceCount > i; i++)
+            {
+                var device = api.GetInputDevice(i);
+                if (i == api.DefaultInputDeviceIndex)
+                {
+                    DefaultDevice = device;
+                }
+
+                Devices.Add(device);
+            }
+        }
+        
+        public SoundIODevice Device { get; private set; }
+
+        public List<SoundIODevice> Devices { get; } = new List<SoundIODevice>();
+
+        public SoundIODevice DefaultDevice { get; }
+        
+        public AudioFormat Format { get; private set; }
+        
+        public void Write(byte[] buffer, int offset, int count)
+        {
+            buffers.Enqueue(buffer);
+        }
+
+        public void SetDevice(SoundIODevice device)
         {
             Device = device;
         }
-        
-        public SoundIODevice Device { get; }
-        
-        public AudioFormat Format { get; }
 
         public event EventHandler<FillEventArgs> Filled;
 
@@ -33,30 +64,24 @@ namespace Spectro.Cross.Soundio
 
         public async Task<FormatResult> SupportsFormatAsync(AudioFormat format)
         {
-            if (format == null)
-            {
-                throw new ArgumentNullException();
-            }
-
             return checkFormatInternal(format, out _);
         }
 
         public async Task StartAsync()
         {
-            if (stream == null)
+            if (instream == null)
             {
                 throw new Exception("You MUST call InitializeAsync");
             }
 
             stop = false;
             threadSource = new TaskCompletionSource<object>();
-            thread.Start();
-            stream.Start();
+            instream.Start();
         }
 
         public async Task StopAsync()
         {
-            if (stream == null)
+            if (instream == null)
             {
                 throw new Exception("You MUST call InitializeAsync");
             }
@@ -64,14 +89,14 @@ namespace Spectro.Cross.Soundio
             stop = true;
             await threadSource.Task;
             threadSource = new TaskCompletionSource<object>();
-            stream.Dispose();
+            instream.Dispose();
         }
 
         private void initInternal(AudioFormat format)
         {
             if (format == null)
             {
-                throw new ArgumentNullException();
+                throw new Exception("You MUST call InitializeAsync");
             }
             
             var native = Soundio.ToSoundioFormat(format);
@@ -80,52 +105,26 @@ namespace Spectro.Cross.Soundio
                 throw new NotSupportedException("Format is not supported : " + format);
             }
 
-            stream = Device.CreateInStream();
-            stream.Format = native.Value;
-            stream.SampleRate = format.SampleRate;
+            instream = Device.CreateInStream();
+            instream.Format = native.Value;
+            instream.SampleRate = format.SampleRate;
 
-            foreach (var layout in Device.Layouts)
-            {
-                if (layout.ChannelCount == format.Channels)
-                {
-                    stream.Layout = layout;
-                    break;
-                }
-            }
             
-            stream.ReadCallback = ReadCallback;
-            stream.Open();
+            instream.ReadCallback = ReadCallback;
+            instream.OverflowCallback = () => Console.WriteLine("Overflow!");
+            instream.Open();
             
-            const int bufferDuration = 30;
-            int capacity = (int)(bufferDuration * stream.SampleRate * stream.BytesPerFrame);
+            // Open後にチャンネルは設定しないと動作しない模様
+            checkFormatInternal(format, out var channelLayout);
+            instream.Layout = channelLayout.Value;
             
-            Console.WriteLine($"{stream.SampleRate} {stream.Layout.ChannelCount} {stream.Format}");
+            Format = Soundio.ToManagedFormat(instream.Format, instream.SampleRate, instream.Layout.ChannelCount);
+            
 
-            ringBuffer = Soundio.Api.CreateRingBuffer(capacity);
-            thread = new Thread(() => CopyThread(capacity));
-        }
-
-        private void CopyThread(int capacity)
-        {
-            var arr = new byte [capacity];
-            unsafe {
-                fixed (void* arrptr = arr) {
-                    while (!stop)
-                    {
-                        Soundio.Api.FlushEvents();
-                        Thread.Sleep (1000);
-                        int fillBytes = ringBuffer.FillCount;
-                        var readBuf = ringBuffer.ReadPointer;
-
-                        Buffer.MemoryCopy ((void*)readBuf, arrptr, fillBytes, fillBytes);
-                        var buffer = new UnionBuffer() { Bytes = arr };
-                        Filled?.Invoke(this, new  FillEventArgs(buffer, 0, fillBytes));
-                        ringBuffer.AdvanceReadPointer (fillBytes);
-                    }
-                }
-            }
-            
-            threadSource.SetResult(null);
+            var bytesPerSample = instream.BytesPerSample;
+            var capacity = Format.SampleRate * Format.Channels * bytesPerSample *
+                           _bufferDuration.TotalSeconds;
+            _ringBuffer = new RingBuffer<byte>((uint)capacity);
         }
 
         private FormatResult checkFormatInternal(AudioFormat format, out SoundIOChannelLayout? layout)
@@ -163,20 +162,14 @@ namespace Spectro.Cross.Soundio
         
         private unsafe void ReadCallback(int frameCountMin, int frameCountMax)
         {
-			var write_ptr = ringBuffer.WritePointer;
-            int freeBytes = ringBuffer.FreeCount;
-            int freeCount = freeBytes / stream.BytesPerFrame;
-
-            if (frameCountMin > freeCount)
-                throw new InvalidOperationException ("ring buffer overflow");
-
-            int writeFrames = Math.Min (freeCount, frameCountMax);
+            int writeFrames = frameCountMax;
             int framesLeft = writeFrames;
+            UnionBuffer unionBuffer = new UnionBuffer();
 
             for (; ; ) {
                 int frameCount = framesLeft;
 
-                var areas = stream.BeginRead (ref frameCount);
+                var areas = instream.BeginRead (ref frameCount);
 
                 if (frameCount == 0)
                     break;
@@ -184,40 +177,47 @@ namespace Spectro.Cross.Soundio
                 if (areas.IsEmpty) {
                     // Due to an overflow there is a hole. Fill the ring buffer with
                     // silence for the size of the hole.
-                    for (int i = 0; i < frameCount * stream.BytesPerFrame; i++)
-                        Marshal.WriteByte (write_ptr + i, 0);
                     Console.Error.WriteLine ("Dropped {0} frames due to internal overflow", frameCount);
                 } else {
                     for (int frame = 0; frame < frameCount; frame += 1) {
-                        int chCount = stream.Layout.ChannelCount;
-                        int copySize = stream.BytesPerSample;
-                        unsafe {
+                        int chCount = instream.Layout.ChannelCount;
+                        int copySize = instream.BytesPerSample;
+                        unionBuffer.Bytes = new byte[copySize];
+                        
+                        fixed (byte* buffer = unionBuffer.Bytes)
+                        {
                             for (int ch = 0; ch < chCount; ch += 1) {
                                 var area = areas.GetArea (ch);
-                                Buffer.MemoryCopy ((void*)area.Pointer, (void*)write_ptr, copySize, copySize);
+                                Buffer.MemoryCopy((void*)area.Pointer, buffer, copySize, copySize);
+                                _ringBuffer.Enqueue(unionBuffer.Bytes);
                                 area.Pointer += area.Step;
-                                write_ptr += copySize;
                             }
                         }
                     }
                 }
 
-                stream.EndRead ();
+                instream.EndRead ();
 
                 framesLeft -= frameCount;
                 if (framesLeft <= 0)
                     break;
             }
 
-            int advanceBytes = writeFrames * stream.BytesPerFrame;
-            ringBuffer.AdvanceWritePointer (advanceBytes);
+            int length = (int)_ringBuffer.GetLength();
+            if (length >= 4096)
+            {
+                var buffer = new byte[length];
+                _ringBuffer.Dequeue(buffer);
+                Filled?.Invoke(this, new FillEventArgs(buffer, 0, length));
+            }
         }
 
         public void Dispose()
         {
-            ringBuffer?.Dispose();
-            stream?.Dispose();
-            Device.RemoveReference();
+            api.Disconnect();
+            api.Dispose();
+            instream?.Dispose();
+            Device?.RemoveReference();
         }
     }
 }

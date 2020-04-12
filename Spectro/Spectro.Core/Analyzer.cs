@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Numerics;
 using System.Threading.Tasks;
@@ -17,7 +19,7 @@ namespace Spectro.Core
             SampleRate = sampleRate;
             FrequencyResolution = sampleRate / (double)size;
             fftResult = new Complex[size];
-            window = Window.HammingPeriodic(size);
+            window = Window.Blackman(size);
         }
         
         public int Size { get; }
@@ -26,7 +28,27 @@ namespace Spectro.Core
         
         public double FrequencyResolution { get; }
         
-        public unsafe void Fft(byte[] buffer, int offset)
+        public void Fft(byte[] buffer, int offset, int bits)
+        {
+            int stride = bits / 8;
+            var dBuffer = new double[buffer.Length / stride];
+            for (var i = 0; i < buffer.Length; i += stride)
+            {
+                switch (bits)
+                {
+                    case 16:
+                        var value = BitConverter.ToInt16(buffer, i);
+                        dBuffer[i / stride] = value / (double) short.MaxValue;
+                        break;
+                    default:
+                        throw new NotSupportedException($"{bits} bits sample is not supported");
+                }
+            }
+            
+            Fft(dBuffer, offset / stride);
+        }
+
+        public unsafe void Fft(double[] buffer, int offset)
         {
             if (buffer.Length - offset < Size)
             {
@@ -34,7 +56,7 @@ namespace Spectro.Core
             }
 
             int size = Size;
-            fixed (byte* buf = buffer)
+            fixed (double* buf = buffer)
             fixed (double* win = window)
             fixed (Complex* res = fftResult)
             {
@@ -68,11 +90,9 @@ namespace Spectro.Core
             
             fixed (Complex* res = fftResult)
             {
-                Complex val;
                 for (int i = offset; endIndex >= i; i++)
                 {
-                    val = res[i];
-                    spectrum[i - offset] = val.Magnitude;
+                    spectrum[i - offset] = res[i].Magnitude;
                 }
             }
 
@@ -120,6 +140,60 @@ namespace Spectro.Core
             }
 
             return power;
+        }
+
+        public List<int> GetPeakIndicies(int offset, int endIndex, int stride = 2, double minimumThreshold = -100)
+        {
+            var indicies = new List<int>();
+            var power = GetDBFS(offset, endIndex);
+            
+            int slimCount;
+            int slimIndex = 0;
+            if (power.Length % stride == 0)
+            {
+                slimCount = power.Length / stride;
+            }
+            else
+            {
+                slimCount = power.Length / stride + 1;
+            }
+
+            var slimPowerIndex = new int[slimCount];
+            var slimPower = new double[slimCount];
+            
+            double av = 0;
+            for (var i = 0; i < power.Length; i += stride)
+            {
+                int sum = Math.Min(power.Length - i, stride);
+                slimPowerIndex[slimIndex] = i;
+                for (int j = 0; j < sum; j++)
+                {
+                    av += power[i + j];
+                }
+
+                av /= sum;
+                slimPower[slimIndex++] = av;
+                av = 0;
+            }
+
+            for (var i = 0; i < slimPower.Length; i++)
+            {
+                av += slimPower[i];
+            }
+
+            av /= slimPower.Length;
+
+            double value;
+            for (var i = 0; i < slimPower.Length; i++)
+            {
+                value = slimPower[i];
+                if (value > av && value >= minimumThreshold)
+                {
+                    indicies.Add(slimPowerIndex[i]);
+                }
+            }
+            
+            return indicies;
         }
 
         public double[] GetDB(int offset)

@@ -16,13 +16,13 @@ namespace Spectro.Core
 
     public class FillEventArgs
     {
-        public UnionBuffer Buffer;
+        public byte[] Buffer;
 
         public int Offset;
         
         public int Count;
 
-        public FillEventArgs(UnionBuffer buffer, int offset, int count)
+        public FillEventArgs(byte[] buffer, int offset, int count)
         {
             Buffer = buffer;
             Offset = offset;

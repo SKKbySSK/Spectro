@@ -20,7 +20,7 @@ namespace Spectro.Core.Test
         public void TestDBFS()
         {
             var sine = MathNet.Numerics.Generate.SinusoidalSequence(sampleRate, 500, 1);
-            analyzer.Fft(sine.Take(8000).Select(d => (byte)(d * Byte.MaxValue)).ToArray(), 0);
+            analyzer.Fft(sine.Take(8000).Select(d => (byte)(d * Byte.MaxValue)).ToArray(), 0, 16);
             var index1 = analyzer.GetIndex(490);
             var index2 = analyzer.GetIndex(510);
             var dbfs = analyzer.GetDBFS(index1, index2);
